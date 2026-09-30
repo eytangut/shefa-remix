@@ -23,9 +23,11 @@ function fit(x, txt, maxW, size, min, fam) {
   x.font = min + 'px ' + fam;
 }
 
+let shareFile = null;
+
 async function makeImage() {
   const modal = $('modal'), msg = $('msg'), out = $('out'), dl = $('dl');
-  modal.hidden = false; out.removeAttribute('src'); dl.hidden = true;
+  modal.hidden = false; out.removeAttribute('src'); dl.hidden = true; $('sharenow').hidden = true; shareFile = null;
   msg.textContent = 'מכינים תמונה…';
   try {
     try {
@@ -36,13 +38,12 @@ async function makeImage() {
       await document.fonts.ready;
     } catch (e) {}
 
-    const imgs = await Promise.all(JOBS.map(j => {
-      const t = T.get(A[j.title]);
-      return t ? loadImg(t.photo) : null;
-    }));
+    const items = JOBS.filter(j => A[j.id]); // Only assigned roles get a tile
+    if (!items.length) {msg.textContent = "עדיין אין שיבוצים"; return; }
+    const imgs = await Promise.all(items.map(j => loadImg(T.get(A[j.id].photo)));
 
     const W = 1080, M = 48, G = 18, TW = (W - 2 * M - G) / 2, TH = 340, HD = 310, FT = 150;
-    const R = Math.ceil(JOBS.length / 2), H = HD + R * (TH + G) - G + FT;
+    const R = Math.ceil(items.length / 2), H = HD + R * (TH + G) - G + FT;
     const c = document.createElement('canvas');
     c.width = W; c.height = H;
     const x = c.getContext('2d');
@@ -54,8 +55,8 @@ async function makeImage() {
     x.font = '800 34px ' + BF; x.fillStyle = WH;
     x.fillText(Object.keys(A).length + ' מתוך ' + JOBS.length + ' תפקידים מאוישים', W - M, 270);
 
-    JOBS.forEach((j, i) => {
-      const tn = A[j.title], t = tn && T.get(tn), im = imgs[i];
+    items.forEach((j, i) => {
+      const tn = A[j.id], t = tn && T.get(tn), im = imgs[i];
       const tx = W - M - TW - (i % 2) * (TW + G), ty = HD + Math.floor(i / 2) * (TH + G), pad = 26;
       x.save();
       cutPath(x, tx, ty, TW, TH, 40); x.clip();
@@ -74,8 +75,6 @@ async function makeImage() {
         const g = x.createLinearGradient(0, ty + TH * .3, 0, ty + TH);
         g.addColorStop(0, 'rgba(11,17,69,0)'); g.addColorStop(1, 'rgba(11,17,69,.94)');
         x.fillStyle = g; x.fillRect(tx, ty, TW, TH);
-      } else {
-        x.fillStyle = TILE[i % 4]; x.fillRect(tx, ty, TW, TH);
       }
 
       fit(x, j.title, TW - 2 * pad, 60, 30, DF);
@@ -95,11 +94,22 @@ async function makeImage() {
 
     const url = c.toDataURL('image/png');
     out.src = url; dl.href = url; dl.hidden = false; msg.textContent = '';
+    c.toBlob(b => {
+      if (!b) return;
+      const f = new File([b], 'shefa-remix.png', { type: 'image/png' });
+      if (matchMedia('(pointer: coarse)').matches && navigator.canShare && navigator.canShare({ files: [f] })) {
+        shareFile = f; $('sharenow').hidden = false;
+      }
+    }, 'image/png');
   } catch (e) {
     msg.textContent = 'יצירת התמונה נכשלה. נסו שוב.';
   }
 }
 
 $('share').onclick = makeImage;
+$('sharenow').onclick = async () => {
+  if (!shareFile) return;
+  try { await navigator.share({ files: [shareFile], title: TITLE }); } catch (e) {}
+};
 $('close').onclick = () => { $('modal').hidden = true; };
 document.addEventListener('keydown', e => { if (e.key === 'Escape') $('modal').hidden = true; });
