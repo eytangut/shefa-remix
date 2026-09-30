@@ -22,12 +22,12 @@ const TEACHERS = [
   { name: 'הרב גיא',    photo: 'img/harav-guy.png' },
   { name: 'הרב חנן',      photo: 'img/harav-hanan.png' },
   { name: 'הרב נריה',    photo: 'img/harav-neria.png' },
-  { name: 'הרב אוריאל חכים',      photo: 'img/harav-uriel-hakim.png' },
+  { name: 'הרב אריאל',      photo: 'img/harav-uriel-hakim.png' },
    {name: "שמואל שיבר", photo: ''}, //
-   {name: "הרב אוריאל סגל", photo: ''}, //
-   {name: "הרב רפאל", photo: ''}, //
+   {name: "הרב אוריאל", photo: 'img/harav-uriel.png'}, 
+   {name: "הרב רפאל", photo: 'img/harav-refael.png'}, 
    {name: "הרב נווה", photo: ''},  //
-   {name: "הרב ידידיה", photo: ''},  //
+   {name: "הרב ידידיה", photo: 'img/harav-yedidia.png'},  
    {name: "הרב יועד", photo: 'img/harav-yoad.png'}
 ];
 
