@@ -4,10 +4,12 @@ const PH = ['#FF4B2B', '#FFD21F', '#2EE6A6', '#FF8FB8', '#7AD7FF', '#FF9A1F'];  
 const TILE = [YEL, RED, MINT, WH];
 const DF = '"Secular One", "Arial Hebrew", Arial, sans-serif';
 const BF = 'Heebo, "Arial Hebrew", Arial, sans-serif';
-const KEY = 'school-gov-v1';
+const KEY = 'school-gov-v2';
 
 const $ = id => document.getElementById(id);
 const T = new Map(TEACHERS.map(t => [t.name, t]));
+const seen = {};
+JOBS.forEach(j => { seen[j.title] = (seen[j.title] || 0) + 1; j.id = j.title + '#' + seen[j.title]; });
 
 /* ---------- Helpers ---------- */
 function color(name) {
@@ -23,18 +25,19 @@ function el(tag, cls, txt) {
 }
 
 /* ---------- State ---------- */
-let A = {};          // assignments: job title -> teacher name
+let A = {};          // assignments: job id -> teacher name
 let sel = null;      // teacher currently picked
 let pop = null;      // job that was just filled (plays the stamp animation)
 let drag = null;     // teacher being dragged
 let intro = true;    // true only for the first render (entrance animation)
 let lastCount = -1;
+let wasFull = null;
 
 try {
   const saved = JSON.parse(localStorage.getItem(KEY) || '{}'), used = new Set();
   for (const j of JOBS) {
-    const n = saved[j.title];
-    if (n && T.has(n) && !used.has(n)) { A[j.title] = n; used.add(n); }
+    const n = saved[j.id];
+    if (n && T.has(n) && !used.has(n)) { A[j.id] = n; used.add(n); }
   }
 } catch (e) {}
 
@@ -76,11 +79,11 @@ function dragOn(node, name) {
 
 /* ---------- Render ---------- */
 function jobTile(j, i) {
-  const tn = A[j.title], t = tn && T.get(tn);
+  const tn = A[j.id], t = tn && T.get(tn);
   const cls = ['tile', 'c' + (i % 4)];
   if (t) cls.push('full');
   if (t && sel === tn) cls.push('picked');
-  if (pop === j.title) cls.push('pop');
+  if (pop === j.id) cls.push('pop');
   if (intro) cls.push('in');
 
   const d = el('div', cls.join(' '));
@@ -101,14 +104,14 @@ function jobTile(j, i) {
     d.appendChild(x);
   }
   d.onclick = () => {
-    if (sel && sel !== tn) { assign(j.title, sel); return; }
+    if (sel && sel !== tn) { assign(j.id, sel); return; }
     sel = t ? (sel === tn ? null : tn) : null;
     pop = null; render();
   };
   d.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); d.click(); } };
   d.addEventListener('dragover', e => { if (drag) { e.preventDefault(); d.classList.add('over'); } });
   d.addEventListener('dragleave', () => d.classList.remove('over'));
-  d.addEventListener('drop', e => { e.preventDefault(); if (drag) assign(j.title, drag); });
+  d.addEventListener('drop', e => { e.preventDefault(); if (drag) assign(j.id, drag); });
   return d;
 }
 
@@ -143,6 +146,12 @@ function render() {
     $('cnt').classList.remove('bump'); void $('cnt').offsetWidth; $('cnt').classList.add('bump');
   }
   lastCount = placed.size;
+  // Cue: all roles filled -> highlight the export button
+  const full = Object.keys(A).length === JOBS.length;
+  $('share').classList.toggle('ready', full);
+  $('hint').textContent = full ? 'הכול מוכן! לחצו על "צרו תמונה"' : 'לחצו על מישהו, ואז על תפקיד בשבילו';
+  if (full && wasFull === false) window.scrollTo({ top: 0, behaviour: 'smooth' });
+  wasFull = full;
   pop = null; intro = false;
 }
 
