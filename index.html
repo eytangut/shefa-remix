@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>ממשלת בית הספר</title>
+  <title>מערבבים את שפע</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@500;800&family=Secular+One&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
     <h1 id="ttl"></h1>
     <div class="meta">
       <b id="cnt"></b>
-      <span class="hint">לחצו על מורה, ואז על תפקיד</span>
+      <span class="hint" id="hint">לחצו על מישהו, ואז על תפקיד בשבילו</span>
       <button class="lnk" id="reset">איפוס</button>
       <button class="btn" id="share">צרו תמונה</button>
     </div>
@@ -31,8 +31,9 @@
 
   <div id="modal" hidden>
     <div id="msg"></div>
-    <img id="out" alt="ממשלת בית הספר">
+    <img id="out" alt="מערבבים את שפע">
     <div class="row">
+      <button class="btn" id="sharenow" hidden> שיתוף </button>
       <a class="btn" id="dl" download="school-government.png" hidden>הורדת התמונה</a>
       <button class="lnk" id="close">סגירה</button>
     </div>
