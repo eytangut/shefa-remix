@@ -40,7 +40,7 @@ async function makeImage() {
 
     const items = JOBS.filter(j => A[j.id]); // Only assigned roles get a tile
     if (!items.length) {msg.textContent = "עדיין אין שיבוצים"; return; }
-    const imgs = await Promise.all(items.map(j => loadImg(T.get(A[j.id].photo)));
+    const imgs = await Promise.all(items.map(j => loadImg(T.get(A[j.id]).photo)));
 
     const W = 1080, M = 48, G = 18, TW = (W - 2 * M - G) / 2, TH = 340, HD = 310, FT = 150;
     const R = Math.ceil(items.length / 2), H = HD + R * (TH + G) - G + FT;
