@@ -1,0 +1,175 @@
+/* ---------- Base ---------- */
+:root {
+  --blue: #1236C8; --ink: #0B1145; --yel: #FFD21F; --red: #FF4B2B;
+  --mint: #2EE6A6; --wh: #F2F5FF; --cut: 26px;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { background: var(--blue); }
+body {
+  margin: 0; min-height: 100vh; color: var(--wh);
+  font: 500 1.0625rem/1.45 Heebo, "Arial Hebrew", Arial, sans-serif;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left);
+}
+button { font: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+/* ---------- Header ---------- */
+header { padding: 20px 16px 6px; }
+h1 {
+  margin: 0; color: var(--yel);
+  font: 400 clamp(2.8rem, 10vw, 5.5rem)/1 "Secular One", Heebo, Arial, sans-serif;
+  animation: wipe .8s var(--ease) both;
+}
+.meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; margin-top: 16px;
+  animation: rise .6s var(--ease) .35s both;
+}
+.meta b { font-weight: 800; font-size: 1.15rem; display: inline-block; }
+.hint { font-size: 1.05rem; }
+.bar { height: 6px; margin-top: 16px; background: rgba(242, 245, 255, .22); overflow: hidden; }
+#bar {
+  display: block; height: 100%; background: var(--mint);
+  transform-origin: right; transform: scaleX(var(--p, 0));
+  transition: transform .6s var(--ease);
+}
+
+.btn {
+  display: inline-block; min-height: 46px; padding: 12px 22px; border: 0;
+  background: var(--yel); color: var(--ink); font-weight: 800; text-decoration: none;
+  clip-path: polygon(12px 0, 100% 0, 100% 100%, 0 100%, 0 12px);
+  transition: background .2s, transform .2s;
+}
+.btn:active { transform: scale(.96); }
+.lnk {
+  min-height: 44px; padding: 6px 4px; border: 0; background: none;
+  color: var(--wh); text-decoration: underline; text-underline-offset: 3px;
+}
+
+/* ---------- Layout ---------- */
+.wrap { display: grid; gap: 20px; padding: 16px 16px calc(170px + env(safe-area-inset-bottom)); }
+#grid {
+  grid-area: grid; display: grid; gap: 14px; align-content: start;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+}
+#pool { grid-area: pool; }
+@media (min-width: 900px) {
+  .wrap {
+    grid-template-columns: 300px 1fr; grid-template-areas: "pool grid";
+    padding-bottom: 40px; padding-inline: 28px;
+  }
+  header { padding-inline: 28px; }
+}
+
+/* ---------- Tiles ---------- */
+.tile {
+  position: relative; aspect-ratio: 4/5; overflow: hidden; display: flex; align-items: flex-end;
+  color: var(--ink); cursor: pointer; user-select: none;
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% 100%, 0 100%, 0 var(--cut));
+  transition: transform .25s var(--ease);
+}
+.c0 { background: var(--yel); } .c1 { background: var(--red); }
+.c2 { background: var(--mint); } .c3 { background: var(--wh); }
+.tile.full { background: var(--ink); }
+
+/* Outline layer: selected, drop target, and "tap me" hints */
+.tile::after {
+  content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  border: 0 solid transparent;
+}
+.tile.picked::after, .tile.over::after { border: 5px solid var(--yel); }
+.tile.over::after { border-color: #fff; }
+.targeting .tile:not(.picked):not(.over)::after {
+  border: 3px dashed var(--ink); animation: blink 1.4s ease-in-out infinite;
+}
+.targeting .tile.full:not(.picked):not(.over)::after { border-color: #fff; }
+
+.sc {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to top, rgba(11, 17, 69, .96), rgba(11, 17, 69, 0) 75%);
+}
+.lb { position: relative; z-index: 2; width: 100%; padding: 16px; }
+.jt {
+  margin: 0; font: 400 clamp(1.5rem, 1rem + 1.4vw, 2.4rem)/1.05 "Secular One", Heebo, Arial, sans-serif;
+}
+.full .jt { color: var(--yel); }
+.tn { margin: 8px 0 0; font-size: 1.05rem; font-weight: 800; color: #fff; text-shadow: 0 1px 6px rgba(11, 17, 69, .8); }
+
+.x {
+  position: absolute; z-index: 4; top: 8px; inset-inline-start: 8px; width: 40px; height: 40px; padding: 0;
+  border: 0; border-radius: 50%; background: rgba(11, 17, 69, .8); color: #fff; font-size: 1.5rem; line-height: 1;
+  transition: transform .2s, background .2s;
+}
+.x:hover { background: var(--red); transform: rotate(90deg); }
+
+/* ---------- Photos / placeholders ---------- */
+.ph { position: absolute; inset: 0; overflow: hidden; display: grid; place-items: center; }
+.ph span {
+  padding-bottom: 36px; color: var(--ink); opacity: .85;
+  font: 400 6rem/1 "Secular One", Heebo, Arial, sans-serif;
+}
+.ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- Teacher pool ---------- */
+#pool { position: fixed; inset-inline: 0; bottom: 0; z-index: 20; background: var(--ink); padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); }
+#pool h2 { margin: 0 0 8px; font-size: 1rem; font-weight: 800; }
+#pool.over { box-shadow: inset 0 0 0 4px #fff; }
+.list { display: flex; gap: 14px; overflow-x: auto; padding-top: 10px; min-height: 112px; scrollbar-width: none; }
+.t {
+  flex: none; width: 88px; display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 0; border: 0; background: none; color: var(--wh); transition: transform .2s var(--ease);
+}
+.t .ph { position: relative; inset: auto; width: 88px; height: 88px; clip-path: polygon(14px 0, 100% 0, 100% 100%, 0 100%, 0 14px); }
+.t .ph span { padding: 0; font-size: 2.8rem; }
+.t .n { font-size: .9rem; font-weight: 800; line-height: 1.15; text-align: center; }
+.t.on { transform: translateY(-8px); }
+.t.on .ph::after { content: ""; position: absolute; inset: 0; border: 4px solid var(--yel); }
+.t.on .n { color: var(--yel); }
+.done { margin: auto; font-weight: 800; }
+
+@media (min-width: 900px) {
+  #pool {
+    position: sticky; inset-inline: auto; top: 16px; bottom: auto; align-self: start;
+    max-height: calc(100vh - 32px); overflow: auto; padding: 18px 16px;
+    clip-path: polygon(var(--cut) 0, 100% 0, 100% 100%, 0 100%, 0 var(--cut));
+  }
+  .list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px 10px; overflow: visible; padding-top: 12px; }
+  .t { width: auto; }
+  .t .ph { width: 100%; height: auto; aspect-ratio: 1; }
+}
+
+/* ---------- Export modal ---------- */
+#modal {
+  position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+  background: rgba(11, 17, 69, .96); animation: fade .25s ease both;
+  padding: calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom));
+}
+#modal[hidden] { display: none; }
+#out { max-width: 92vw; max-height: calc(100vh - 170px); box-shadow: 0 0 0 4px var(--yel); animation: zoom .45s var(--ease) both; }
+#out:not([src]) { display: none; }
+#msg { font-weight: 800; }
+.row { display: flex; gap: 18px; align-items: center; }
+
+/* ---------- Motion ---------- */
+/* Page load: title wipes in, then tiles and teachers rise in a staggered wave (see .in) */
+.in { animation: rise .6s var(--ease) both; animation-delay: calc(var(--i, 0) * 55ms + 300ms); }
+.pop { animation: stamp .5s cubic-bezier(.2, 1.4, .4, 1); }   /* teacher just assigned */
+.bump { animation: bump .4s var(--ease); }                    /* counter changed */
+
+@media (hover: hover) {
+  .tile:hover { transform: translateY(-5px); }
+  .t:hover { transform: translateY(-4px); }
+  .btn:hover { background: #fff; }
+}
+
+@keyframes wipe  { from { clip-path: inset(-.1em -.1em -.3em 100%); } to { clip-path: inset(-.1em -.1em -.3em -.1em); } }
+@keyframes rise  { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+@keyframes stamp { 0% { transform: scale(1.14) rotate(-2.5deg); filter: brightness(1.5); } 60% { transform: scale(.97); } 100% { transform: none; filter: none; } }
+@keyframes blink { 50% { opacity: .25; } }
+@keyframes bump  { 40% { transform: scale(1.25); color: var(--yel); } }
+@keyframes fade  { from { opacity: 0; } }
+@keyframes zoom  { from { opacity: 0; transform: scale(.92) translateY(16px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ממשלת בית הספר</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@500;800&family=Secular+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <h1 id="ttl"></h1>
+    <div class="meta">
+      <b id="cnt"></b>
+      <span class="hint">לחצו על מורה, ואז על תפקיד</span>
+      <button class="lnk" id="reset">איפוס</button>
+      <button class="btn" id="share">צרו תמונה</button>
+    </div>
+    <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+  </header>
+
+  <main class="wrap">
+    <section id="grid" aria-label="תפקידים"></section>
+    <aside id="pool">
+      <h2 id="pcount"></h2>
+      <div class="list" id="list"></div>
+    </aside>
+  </main>
+
+  <div id="modal" hidden>
+    <div id="msg"></div>
+    <img id="out" alt="ממשלת בית הספר">
+    <div class="row">
+      <a class="btn" id="dl" download="school-government.png" hidden>הורדת התמונה</a>
+      <button class="lnk" id="close">סגירה</button>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/export.js"></script>
+</body>
+</html>
