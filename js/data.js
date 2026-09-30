@@ -16,17 +16,17 @@ const TEACHERS = [
   { name: 'הרב יהושע',       photo: 'img/harav-yehoshua.png' },
   { name: 'הרב דן',    photo: 'img/harav-dan.png' },
   { name: 'שמואל',   photo: '' }, //
-  { name: 'תני',     photo: '' }, //
+  { name: 'תני',     photo: 'img/tani.png' }, 
   { name: 'הרב אייל',   photo: 'img/harav-eyal.png' }, 
   { name: 'יפים',     photo: 'img/yafim.png' },
   { name: 'הרב גיא',    photo: 'img/harav-guy.png' },
   { name: 'הרב חנן',      photo: 'img/harav-hanan.png' },
   { name: 'הרב נריה',    photo: 'img/harav-neria.png' },
   { name: 'הרב אריאל',      photo: 'img/harav-uriel-hakim.png' },
-   {name: "שמואל שיבר", photo: ''}, //
+   {name: "שמואל שיבר", photo: 'img/shmuel-shiber.png'}, 
    {name: "הרב אוריאל", photo: 'img/harav-uriel.png'}, 
    {name: "הרב רפאל", photo: 'img/harav-refael.png'}, 
-   {name: "הרב נווה", photo: ''},  //
+   {name: "הרב נווה", photo: 'img/harav-nave.png'},  
    {name: "הרב ידידיה", photo: 'img/harav-yedidia.png'},  
    {name: "הרב יועד", photo: 'img/harav-yoad.png'}
 ];
