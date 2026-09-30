@@ -6,7 +6,7 @@
      Local files (e.g. 'photos/dana.jpg') and data: URLs always work
      in the exported image. Remote URLs must allow cross-origin
      loading (CORS), otherwise the placeholder is used in the PNG.
-   JOBS: title must be unique.
+   JOBS: does not necessarily need to be unique.
    ============================================================ */
 const TEACHERS = [
   { name: 'הרב יהונתן',  photo: '' },
@@ -14,7 +14,7 @@ const TEACHERS = [
   { name: 'הרב שוקי',    photo: '' },
   { name: 'רזיאלה',       photo: '' },
   { name: 'הרב יהושע',       photo: '' },
-  { name: 'הרב דו',    photo: '' },
+  { name: 'הרב דן',    photo: '' },
   { name: 'שמואל',   photo: '' },
   { name: 'תני',     photo: '' },
   { name: 'הרב אייל',   photo: '' },
@@ -23,6 +23,11 @@ const TEACHERS = [
   { name: 'הרב חנן',      photo: '' },
   { name: 'הרב נריה',    photo: '' },
   { name: 'הרב אוריאל חכים',      photo: '' },
+   {name: "שמואל שיבר", photo: ''},
+   {name: "הרב אוריאל סגל", photo: ''},
+   {name: "הרב רפאל", photo: ''},
+   {name: "הרב נווה", photo: ''},
+   {name: "הרב ידידיה", photo: ''},
 ];
 
 const JOBS = [
@@ -33,12 +38,13 @@ const JOBS = [
   { title: 'רמ"ש אשכולות' },
   { title: 'אב בית' },
   { title: 'מאבטח' },
-  { title: 'ר"מ' },
-   { title: 'ר"מ' },
-   { title: 'ר"מ' },
-   { title: 'ר"מ' },
+  { title: `ר"מ ט'` },
+   { title: `ר"מ י'` },
+   { title: `ר"מ י"א` },
+   { title: `ר"מ י"ב` },
    { title: 'רמ"ש' },
-   { title: 'רמ"ש' }
+   { title: 'רמ"ש' },
+   { title: "יועץ"}
    
 ];
 
