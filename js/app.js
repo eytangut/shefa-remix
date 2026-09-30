@@ -136,10 +136,10 @@ function render() {
   const list = $('list'), scroll = list.scrollLeft;
   list.innerHTML = '';
   free.forEach((t, i) => list.appendChild(teacherChip(t, i)));
-  if (!free.length) list.appendChild(el('div', 'done', 'כל המורים שובצו'));
+  if (!free.length) list.appendChild(el('div', 'done', 'כולם שובצו'));
   list.scrollLeft = scroll;
 
-  $('pcount').textContent = 'מורים פנויים (' + free.length + ')';
+  $('pcount').textContent = 'אנשים פנויים (' + free.length + ')';
   $('cnt').textContent = placed.size + ' מתוך ' + JOBS.length + ' תפקידים מאוישים';
   $('bar').style.setProperty('--p', placed.size / JOBS.length);
   if (lastCount !== -1 && lastCount !== placed.size) {
