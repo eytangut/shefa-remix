@@ -9,25 +9,26 @@
    JOBS: does not necessarily need to be unique.
    ============================================================ */
 const TEACHERS = [
-  { name: 'הרב יהונתן',  photo: '' },
-  { name: 'הרב דוד',   photo: '' },
-  { name: 'הרב שוקי',    photo: '' },
-  { name: 'רזיאלה',       photo: '' },
-  { name: 'הרב יהושע',       photo: '' },
-  { name: 'הרב דן',    photo: '' },
-  { name: 'שמואל',   photo: '' },
-  { name: 'תני',     photo: '' },
-  { name: 'הרב אייל',   photo: '' },
+  { name: 'הרב יהונתן',  photo: 'img/harav-yehonatan.png' },
+  { name: 'הרב דוד',   photo: 'img/harav-david.png' },
+  { name: 'הרב שוקי',    photo: 'img/harav-shuki.png' },
+  { name: 'רזיאלה',       photo: '' }, //
+  { name: 'הרב יהושע',       photo: 'img/harav-yehoshua.png' },
+  { name: 'הרב דן',    photo: 'img/harav-dan.png' },
+  { name: 'שמואל',   photo: '' }, //
+  { name: 'תני',     photo: '' }, //
+  { name: 'הרב אייל',   photo: 'img/harav-eyal.png' }, 
   { name: 'יפים',     photo: 'img/yafim.png' },
   { name: 'הרב גיא',    photo: 'img/harav-guy.png' },
   { name: 'הרב חנן',      photo: 'img/harav-hanan.png' },
   { name: 'הרב נריה',    photo: 'img/harav-neria.png' },
   { name: 'הרב אוריאל חכים',      photo: 'img/harav-uriel-hakim.png' },
-   {name: "שמואל שיבר", photo: ''},
-   {name: "הרב אוריאל סגל", photo: ''},
-   {name: "הרב רפאל", photo: ''},
-   {name: "הרב נווה", photo: ''},
-   {name: "הרב ידידיה", photo: ''},
+   {name: "שמואל שיבר", photo: ''}, //
+   {name: "הרב אוריאל סגל", photo: ''}, //
+   {name: "הרב רפאל", photo: ''}, //
+   {name: "הרב נווה", photo: ''},  //
+   {name: "הרב ידידיה", photo: ''},  //
+   {name: "הרב יועד", photo: 'img/harav-yoad.png'}
 ];
 
 const JOBS = [
